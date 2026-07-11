@@ -15,9 +15,7 @@ content="https://jaiakkayarajkumar03.github.io/my-portfolio/">
 <meta property="og:title" content="Jai Akkayarajkumar | Analog & Mixed-Signal IC Design Engineer">
 <meta property="og:description" content="Portfolio of Analog IC Design, Mixed-Signal, SerDes, Physical Design and AI-Assisted SAR ADC projects.">
 <meta property="og:image" content="Profile.png">
-<meta property="og:type" content="website">
-<meta property="og:url"
-content="https://jaiakkayarajkumar03.github.io/my-portfolio/">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="icon" href="Profile.png">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -740,14 +738,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 5%;
       <div class="form-group">
         <label class="form-label">Your Name</label>
         <input
+id="from_name"
+class="form-input"
+type="text"
+placeholder="Your Name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input
 id="from_email"
 class="form-input"
 type="email"
 placeholder="vjjaiakkayarajkumar@email.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input class="form-input" type="email" placeholder="your@email.com">
       </div>
       <div class="form-group">
         <label class="form-label">Message</label>
@@ -811,38 +813,38 @@ document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 // Contact
 function handleContact() {
 
+    const name = document.getElementById("from_name").value.trim();
+    const email = document.getElementById("from_email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!name || !email || !message) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
     const params = {
-
-        from_name: document.getElementById("from_name").value,
-
-        from_email: document.getElementById("from_email").value,
-
-        message: document.getElementById("message").value
-
+        from_name: name,
+        from_email: email,
+        message: message
     };
 
     emailjs.send(
-
         "service_rajkumar",
-
         "template_raja01",
-
         params
-
-    ).then(function () {
-
+    )
+    .then(function () {
         alert("Message Sent Successfully!");
 
-    }).catch(function (error) {
-
-        alert("Message Failed!");
-
+        document.getElementById("from_name").value = "";
+        document.getElementById("from_email").value = "";
+        document.getElementById("message").value = "";
+    })
+    .catch(function (error) {
+        alert("Failed to send message.");
         console.log(error);
-
     });
-
 }
-
 // Active nav highlight
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
